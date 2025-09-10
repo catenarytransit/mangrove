@@ -4,6 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-gtfs-structures = "0.44.0"
+glib = "0.21.1"
+gtfs-structures = "0.45.0"
+gtk = { version = "0.10.0", package = "gtk4", features = ["v4_12"] }
+gtk4 = "0.10.0"
 prettytable = {version = "0.10.0", features = ["csv"]}
 regex = "1.11.2"
+
+[[bin]]
+name = "ui"
+path = "src/ui.rs"

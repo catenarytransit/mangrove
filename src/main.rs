@@ -3,33 +3,33 @@ use std::{fs::File, os::raw};
 use std::io::prelude::*;
 
 use gtfs_structures::*;
+
 use prettytable::{*, Table, Row, Cell};
+
+
 
 fn main() {
     // Create the table
     let mut table = Table::new();
     
     let output = File::create("test.csv").unwrap();
+    let path = "test.zip";
 
-    let transit_data = first_read("test.zip");
+    first_read(path);
+
+    let data = extract_data(path);
     
-    /*if let Ok(data) = transit_data {
-        table.add_row(Row::from(data.trips.values().map(|a| a.route_id.clone()).filter(|a| !a.is_empty())));
+    table.add_row(Row::from(data.trips.values().map(|a| a.route_id.clone()).filter(|a| !a.is_empty())));
 
-        // Print the table to stdout
-        let _ = table.to_csv(output);
-    }*/
+    // Print the table to stdout
+    let _ = table.to_csv(output);
+    
     // Add a row per time
-    /*table.add_row(row!["ABC", "DEFG", "HIJKLMN"]);
+    table.add_row(row!["ABC", "DEFG", "HIJKLMN"]);
     table.add_row(row!["foobar", "bar", "foo"]);
-    // A more complicated way to add a row:
-    table.add_row(Row::new(vec![
-        Cell::new("foobar2"),
-        Cell::new("bar2"),
-        Cell::new("foo2")]));*/
 }
 
-pub fn first_read(path: &str) -> () {
+pub fn first_read(path: &str) {
     let mut errors_found = Vec::new();
     let mut extras_incl = Vec::new();
     let raw_data_unwrapped = gtfs_structures::GtfsReader::default()
@@ -89,6 +89,14 @@ pub fn first_read(path: &str) -> () {
     else {
        errors_found.push(raw_data_unwrapped.unwrap_err());
     }
-    
+    println!("errors {errors_found:?}");
+    println!("extras inc {extras_incl:?}");
+
 }
 
+pub fn extract_data(path: &str) -> Gtfs {
+    let gtfs = gtfs_structures::GtfsReader::default()
+        .read(path)
+        .ok();
+    gtfs.unwrap()
+}
