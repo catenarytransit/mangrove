@@ -23,3 +23,6 @@ Transit Network
 - Are there important locations near stations/stops?
 - Are there enough stops? Can people take transfers from these stops?
 - Are there enough trips per day?
+
+- idea draft ui
+<img width="1256" height="947" alt="scratchwork" src="https://github.com/user-attachments/assets/3d125043-1801-45be-9e2a-f77810b017dd" />
